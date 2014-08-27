@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="coinbase.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#pay-link").click(function() {
+          Coinbase.oauth.authorize("988da666467581fbe763b84885eb5357b9e71532fcc99c43e68e869a478e06c0", "aba9118fa88741ceea79b4199264bb4d4aaaf917656f09869e615550b69efb8d", "send", {}, function (result) {
+            alert("Access token: " + result.access_token + "\nRefresh token: " + result.refresh_token);
+          });
+        })
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <a href="#" id="pay-link">Pay with Bitcoin</a>
+    </div>
+  </body>
+</html>
