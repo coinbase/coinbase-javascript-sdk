@@ -1,13 +1,23 @@
 window.Coinbase = {
-  base_url: "https://coinbase.com",
+  base_url: "http://localhost:3000", //https://coinbase.com",
   oauth: {
-    authorize: function(clientId, clientSecret, scope, meta, success, failure) {
+    authorize: function(params) {
       var url = Coinbase.base_url + '/oauth/authorize?response_type=code'
-      var redirect_uri = Coinbase.base_url + "/oauth/javascript_sdk_redirect?grant_type=authorization_code&client_id=" + clientId + "&client_secret=" + clientSecret;
-      url += "&redirect_uri=" + encodeURIComponent(redirect_uri);
-      url += "&client_id=" + clientId;
-      url += "&scope=" + encodeURIComponent(scope);
-      url += "&" + $.param({ meta: meta });
+      var redirectUri = Coinbase.base_url + "/oauth/javascript_sdk_redirect";
+      url += "&redirect_uri=" + encodeURIComponent(redirectUri);
+      url += "&client_id=" + params.clientId;
+      if (params.scopes) {
+        url += "&scope=" + encodeURIComponent(params.scopes);
+      }
+
+      if (params.meta) {
+        for (var key in params.meta) {
+          if (params.meta.hasOwnProperty(key)) {
+            url += "&meta[" + encodeURIComponent(key) + "]=" + encodeURIComponent(params.meta[key]);
+          }
+        }
+      }
+
       var width = 850;
       var height = 600;
       var left = (screen.width - width) / 2;
@@ -21,7 +31,7 @@ window.Coinbase = {
 
         event.source.close();
         var data = JSON.parse(event.data);
-        success(data);
+        params.success(data);
       }
       window.addEventListener("message", receiveMessage, false);
     }
