@@ -1,5 +1,5 @@
 window.Coinbase = {
-  base_url: "http://localhost:3000", //https://coinbase.com",
+  base_url: "https://coinbase.com",
   oauth: {
     authorize: function(params) {
       var url = Coinbase.base_url + '/oauth/authorize?response_type=code'
