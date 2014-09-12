@@ -2,24 +2,22 @@
 <html>
   <head>
     <script type="text/javascript" src="coinbase.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $("#pay-link").click(function() {
-          Coinbase.oauth.authorize({
-            clientId: "988da666467581fbe763b84885eb5357b9e71532fcc99c43e68e869a478e06c0",
-            scopes: "send",
-            meta: { send_limit_amount: "100", send_limit_currency: "USD", send_limit_period: "per_month", name: "Moonbase" },
-            success: function (result) {
-              alert("Code: " + result.code);
-            }
-          });
-        })
-      });
-    </script>
   </head>
   <body>
     <div>
       <a href="#" id="pay-link">Pay with Bitcoin</a>
+      <script type="text/javascript">
+        document.getElementById("pay-link").onclick = function () {
+          Coinbase.oauth.authorize({
+            clientId: "7b33345e3f8864e2c2d641c00f993a0c4e6e43fa35feeaa747813e473745abd8",
+            scopes: "send",
+            meta: { send_limit_amount: "100", send_limit_currency: "USD", send_limit_period: "per_month" },
+            success: function (result) {
+              alert("Code: " + result.code);
+            }
+          });
+        };
+      </script>
     </div>
   </body>
 </html>
